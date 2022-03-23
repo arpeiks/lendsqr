@@ -1,0 +1,25 @@
+{
+  "exclude": ["node_modules"],
+
+  "compilerOptions": {
+    "strict": true,
+    "pretty": true,
+    "baseUrl": "src",
+    "outDir": "./dist",
+    "target": "es2016",
+    "incremental": true,
+    "module": "commonjs",
+    "skipLibCheck": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "noUnusedParameters": true,
+    "allowUnusedLabels": false,
+    "strictFunctionTypes": true,
+    "allowUnreachableCode": false,
+    "forceConsistentCasingInFileNames": true
+  }
+}
