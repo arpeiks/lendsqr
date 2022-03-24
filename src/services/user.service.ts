@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs'
 import { Service } from 'typedi'
 import { ConflictError } from '../errors'
 import { CreateUserRequestBody } from 'request/create-user'
@@ -26,9 +27,9 @@ export class UserService {
   async create(body: CreateUserRequestBody) {
     await this.beforeCreate(body)
 
-    const user = await this.User.create(body)
-    console.log(user)
+    const salt = await bcrypt.genSalt(12)
+    body.password = await bcrypt.hash(body.password, salt)
 
-    return user
+    return await this.User.create(body)
   }
 }
