@@ -1,19 +1,19 @@
-import { Request, Response } from 'express'
-import User from '../services/user.service'
+import { Service } from 'typedi'
+import { UserService } from '../services/user.service'
+import { CreateUserRequestBody } from '../request/create-user'
+import { Body, JsonController as Controller, Post } from 'routing-controllers'
 
-interface Props {
-  register: any
-}
+@Service()
+@Controller('/user')
+export class UserController {
+  constructor(private readonly user: UserService) {}
 
-const controller: Props = {} as any
-
-controller.register = async (req: Request, res: Response) => {
-  try {
-    const user = await User.register(req.body)
-    res.json(user)
-  } catch (err) {
-    console.log(err)
+  @Post()
+  async create(@Body() body: CreateUserRequestBody) {
+    try {
+      return await this.user.create(body)
+    } catch (err: any) {
+      console.log({ err })
+    }
   }
 }
-
-export default controller

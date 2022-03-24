@@ -1,16 +1,12 @@
-interface Prop {
-  register: (data: any) => any
-}
+import { Service } from 'typedi'
+import User from '../repositories/user.repository'
+import { CreateUserRequestBody } from 'request/create-user'
 
-const user: Prop = {} as any
-
-user.register = async (data: any) => {
-  try {
-    console.log(data)
-    return data
-  } catch (err) {
-    console.log(err)
+@Service()
+export class UserService {
+  async create(body: CreateUserRequestBody) {
+    await User().insert(body)
+    const res = await User().select('*').where('email', body.email)
+    return res
   }
 }
-
-export default user

@@ -19,7 +19,9 @@
     "noUnusedParameters": true,
     "allowUnusedLabels": false,
     "strictFunctionTypes": true,
+    "emitDecoratorMetadata": true,
     "allowUnreachableCode": false,
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true
   }
 }
