@@ -12,8 +12,6 @@ export class UserService {
     const errors: string[] = []
     const user = await this.User.beforeCreate(body)
 
-    console.log(user)
-
     if (user?.email === body.email) {
       errors.push('The email address is unavailable')
     }

@@ -12,9 +12,13 @@ export async function up(knex: Knex): Promise<void> {
     table.string('phone').index().unique().notNullable()
 
     table.string('password').notNullable()
+    table.integer('account_id').unsigned().notNullable()
+    table.boolean('verified').defaultTo(false)
 
     table.timestamp('created_at').defaultTo(knex.fn.now())
     table.timestamp('updated_at').defaultTo(knex.fn.now())
+
+    table.foreign('account_id').references('id').inTable('account')
   })
 }
 
