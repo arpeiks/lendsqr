@@ -10,10 +10,6 @@ export class UserController {
 
   @Post()
   async create(@Body() body: CreateUserRequestBody) {
-    try {
-      return await this.user.create(body)
-    } catch (err: any) {
-      console.log({ err })
-    }
+    return await this.user.create(body)
   }
 }

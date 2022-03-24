@@ -27,8 +27,6 @@ export class ErrorMiddleware implements ExpressErrorMiddlewareInterface {
   handleError(code: number, message: string, errors: any[], res: Response) {
     const error = createError(code, message, { errors })
 
-    console.log({ ...error })
-
     const err = {
       name: error.name,
       message: error.message,
@@ -36,6 +34,6 @@ export class ErrorMiddleware implements ExpressErrorMiddlewareInterface {
       errors,
     }
 
-    res.status(code).send(err)
+    return res.status(code).send(err)
   }
 }
