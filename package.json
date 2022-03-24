@@ -29,6 +29,7 @@
     "prettier": "^2.6.0",
     "rimraf": "^3.0.2",
     "ts-node": "^10.7.0",
+    "tsconfig-paths": "^3.14.1",
     "typescript": "^4.6.2"
   },
   "dependencies": {
@@ -42,5 +43,18 @@
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.9.0",
     "typedi": "^0.10.0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      ".git",
+      "**/*.spec.ts",
+      "**/*.test.ts",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "node -r tsconfig-paths/register -r ts-node/register ./src/main.ts",
+    "ext": "ts, js"
   }
 }

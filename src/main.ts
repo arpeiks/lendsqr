@@ -1,8 +1,8 @@
 import 'reflect-metadata'
 import express from 'express'
 import Container from 'typedi'
-import { ErrorMiddleware } from './middlewares/error'
-import { UserController } from './controllers/user.controller'
+import { UserController } from '@user/user.controller'
+import { ErrorMiddleware } from '@middlewares/error.middleware'
 import { useContainer, useExpressServer } from 'routing-controllers'
 
 useContainer(Container)
