@@ -3,6 +3,7 @@ import express from 'express'
 import Container from 'typedi'
 import { UserController } from '@user/user.controller'
 import { ErrorMiddleware } from '@middlewares/error.middleware'
+import { AccountController } from '@account/account.controller'
 import { useContainer, useExpressServer } from 'routing-controllers'
 
 useContainer(Container)
@@ -15,8 +16,8 @@ app.use(express.urlencoded({ extended: false }))
 useExpressServer(app, {
   routePrefix: '/api',
   defaultErrorHandler: false,
-  controllers: [UserController],
   middlewares: [ErrorMiddleware],
+  controllers: [UserController, AccountController],
 })
 
 // return unverified after creating account

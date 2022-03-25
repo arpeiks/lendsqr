@@ -10,9 +10,6 @@ export class UserController {
 
   @Post()
   async create(@Body() body: CreateUserRequestBody) {
-    const user = await this.user.create(body)
-    console.log('controller', user)
-
-    return user
+    return await this.user.create(body)
   }
 }

@@ -28,6 +28,7 @@
       "@knex/*": ["./knex/*"],
       "@errors/*": ["./errors/*"],
       "@user/*": ["./modules/user/*"],
+      "@account/*": ["./modules/account/*"],
       "@middlewares/*": ["./middlewares/*"]
     }
   }

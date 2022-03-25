@@ -3,9 +3,9 @@ import {
   ExpressErrorMiddlewareInterface,
 } from 'routing-controllers'
 
+import { Service } from 'typedi'
 import { Response } from 'express'
 import createError from 'http-errors'
-import { Service } from 'typedi'
 import { Format } from '../utils/format-error'
 import { ValidationError } from 'class-validator'
 

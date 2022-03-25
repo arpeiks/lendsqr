@@ -42,4 +42,6 @@ export class CreateUserRequestBody {
   @IsString()
   @IsNotEmpty()
   email!: string
+
+  account_id!: number
 }
