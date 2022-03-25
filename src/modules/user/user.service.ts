@@ -1,7 +1,9 @@
 import bcrypt from 'bcryptjs'
 import { Service } from 'typedi'
 import { UserRepository } from './user.repository'
+import { randomNumber } from '@utils/random-number'
 import { ConflictError } from '@errors/conflict.error'
+import { sendVerifyAccountMail } from '@utils/send-mail'
 import { AccountService } from '@account/account.service'
 import { CreateUserRequestBody } from '@dto/request/create-user.dto'
 
@@ -31,12 +33,14 @@ export class UserService {
     await this.beforeCreate(body)
 
     const account = await this.Account.create({})
+
     body.account_id = account.id
+    body.otp = randomNumber(6)
 
     const salt = await bcrypt.genSalt(12)
     body.password = await bcrypt.hash(body.password, salt)
 
-    console.log(body)
+    await sendVerifyAccountMail()
 
     return await this.User.create(body)
   }

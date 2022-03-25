@@ -8,5 +8,5 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  return await knex.schema.dropTableIfExists('user')
+  return await knex.schema.dropTableIfExists('account')
 }

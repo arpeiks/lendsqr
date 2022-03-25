@@ -26,6 +26,7 @@
     "paths": {
       "@dto/*": ["./dto/*"],
       "@knex/*": ["./knex/*"],
+      "@utils/*": ["./utils/*"],
       "@errors/*": ["./errors/*"],
       "@user/*": ["./modules/user/*"],
       "@account/*": ["./modules/account/*"],

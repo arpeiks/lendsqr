@@ -43,5 +43,6 @@ export class CreateUserRequestBody {
   @IsNotEmpty()
   email!: string
 
+  otp!: string
   account_id!: number
 }

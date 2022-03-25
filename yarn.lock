@@ -254,6 +254,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/nodemailer@npm:^6.4.4":
+  version: 6.4.4
+  resolution: "@types/nodemailer@npm:6.4.4"
+  dependencies:
+    "@types/node": "*"
+  checksum: 16ed1bad2cd8471fd3b026471e234da33ba3b65935dc44b31be3145eff7bdb067eb4d08ec4b41d23339b988075299abc1a0c0fe77b99f04ca235827bca95af81
+  languageName: node
+  linkType: hard
+
 "@types/qs@npm:*":
   version: 6.9.7
   resolution: "@types/qs@npm:6.9.7"
@@ -2406,6 +2415,7 @@ __metadata:
     "@types/express": ^4.17.13
     "@types/http-errors": ^1.8.2
     "@types/node": ^17.0.22
+    "@types/nodemailer": ^6.4.4
     "@typescript-eslint/eslint-plugin": ^5.16.0
     "@typescript-eslint/parser": ^5.16.0
     bcryptjs: ^2.4.3
@@ -2416,6 +2426,7 @@ __metadata:
     http-errors: ^2.0.0
     knex: ^1.0.4
     mysql2: ^2.3.3
+    nodemailer: ^6.7.3
     nodemon: ^2.0.15
     prettier: ^2.6.0
     reflect-metadata: ^0.1.13
@@ -2831,6 +2842,13 @@ __metadata:
   bin:
     node-gyp: bin/node-gyp.js
   checksum: 4d8ef8860f7e4f4d86c91db3f519d26ed5cc23b48fe54543e2afd86162b4acbd14f21de42a5db344525efb69a991e021b96a68c70c6e2d5f4a5cb770793da6d3
+  languageName: node
+  linkType: hard
+
+"nodemailer@npm:^6.7.3":
+  version: 6.7.3
+  resolution: "nodemailer@npm:6.7.3"
+  checksum: b94d099f00f25666fc96a7cb498045e7428045b8cc0245ce10522190fd513b586d6e31305afd019f6878f1540d14d169d0dbe2e1f77385795c7054912d822ec0
   languageName: node
   linkType: hard
 
