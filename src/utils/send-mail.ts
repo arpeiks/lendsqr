@@ -1,10 +1,10 @@
 import transporter from './nodemailer'
 
-export const sendVerifyAccountMail = async () =>
-  await transporter.sendMail({
+export const sendVerifyAccountMail = async (to: string, html: string) => {
+  return await transporter.sendMail({
+    to,
+    html,
     from: 'Lendsqr 👻',
-    to: 'arpeiks@gmail.com',
     subject: 'Welcome to Lendsqr 👻',
-    text: 'Welcome, Verify your account',
-    html: '<b>Welcome, Verify your account</b>',
   })
+}

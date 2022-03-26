@@ -5,6 +5,7 @@ import { randomNumber } from '@utils/random-number'
 import { ConflictError } from '@errors/conflict.error'
 import { sendVerifyAccountMail } from '@utils/send-mail'
 import { AccountService } from '@account/account.service'
+import { welcomeMailTemplate } from '@utils/resolve-mail-template'
 import { CreateUserRequestBody } from '@dto/request/create-user.dto'
 
 @Service()
@@ -30,18 +31,26 @@ export class UserService {
   }
 
   async create(body: CreateUserRequestBody) {
-    await this.beforeCreate(body)
+    try {
+      await this.beforeCreate(body)
 
-    const account = await this.Account.create({})
+      const account = await this.Account.create({})
 
-    body.account_id = account.id
-    body.otp = randomNumber(6)
+      body.account_id = account.id
+      body.otp = randomNumber(6)
 
-    const salt = await bcrypt.genSalt(12)
-    body.password = await bcrypt.hash(body.password, salt)
+      const salt = await bcrypt.genSalt(12)
+      body.password = await bcrypt.hash(body.password, salt)
 
-    await sendVerifyAccountMail()
+      const user = await this.User.create(body)
 
-    return await this.User.create(body)
+      const html = await welcomeMailTemplate('https://google.com', 'welcome')
+      await sendVerifyAccountMail(user.email, html)
+
+      return user
+    } catch (err) {
+      console.log(err)
+      console.log({ err })
+    }
   }
 }

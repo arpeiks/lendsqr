@@ -1,6 +1,6 @@
 import knex from '@knex/db'
 import { Service } from 'typedi'
-import { BeforeCreate } from './user.dto'
+import { BeforeCreate, CreateUser } from './dto/repository.dto'
 import { CreateUserRequestBody } from '@dto/request/create-user.dto'
 
 @Service()
@@ -13,7 +13,7 @@ export class UserRepository {
       .first()
   }
 
-  async create(body: CreateUserRequestBody) {
+  async create(body: CreateUserRequestBody): Promise<CreateUser> {
     await knex('user').insert(body)
     return await knex('user').select('*').where('email', body.email).first()
   }

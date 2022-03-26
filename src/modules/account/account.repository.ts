@@ -11,6 +11,6 @@ export class AccountRepository {
 
   async nextSequence(): Promise<number | undefined> {
     const data = await knex('account').max('id', { as: 'id' }).first()
-    return data?.id || 1
+    return Number(data?.id || 1) + 1
   }
 }
