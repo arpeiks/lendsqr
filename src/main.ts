@@ -1,6 +1,8 @@
 import 'reflect-metadata'
+import morgan from 'morgan'
 import express from 'express'
 import Container from 'typedi'
+import { logger, morganStream } from '@utils/logger'
 import { UserController } from '@user/user.controller'
 import { ErrorMiddleware } from '@middlewares/error.middleware'
 import { AccountController } from '@account/account.controller'
@@ -11,6 +13,7 @@ useContainer(Container)
 const app = express()
 
 app.use(express.json())
+app.use(morgan('dev', { stream: morganStream }))
 app.use(express.urlencoded({ extended: false }))
 
 useExpressServer(app, {
@@ -30,4 +33,4 @@ useExpressServer(app, {
 
 // validate account before to ensure validated before sending money
 
-app.listen(3001, () => console.log('Express Application started successfully!'))
+app.listen(3001, () => logger.info('Lendsqr application successfully started'))
