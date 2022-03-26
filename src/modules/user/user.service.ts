@@ -1,9 +1,9 @@
 import bcrypt from 'bcryptjs'
 import { Service } from 'typedi'
+import { sendMail } from '@utils/send-mail'
 import { UserRepository } from './user.repository'
 import { randomNumber } from '@utils/random-number'
 import { ConflictError } from '@errors/conflict.error'
-import { sendVerifyAccountMail } from '@utils/send-mail'
 import { AccountService } from '@account/account.service'
 import { welcomeMailTemplate } from '@utils/resolve-mail-template'
 import { CreateUserRequestBody } from '@dto/request/create-user.dto'
@@ -45,7 +45,7 @@ export class UserService {
       const user = await this.User.create(body)
 
       const html = await welcomeMailTemplate('https://google.com', 'welcome')
-      await sendVerifyAccountMail(user.email, html)
+      await sendMail(user.email, html)
 
       return user
     } catch (err) {

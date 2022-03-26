@@ -1,6 +1,16 @@
-import transporter from './nodemailer'
+import nodemailer from 'nodemailer'
 
-export const sendVerifyAccountMail = async (to: string, html: string) => {
+const transporter = nodemailer.createTransport({
+  port: 465,
+  secure: true,
+  host: 'smtp.gmail.com',
+  auth: {
+    pass: 'pocdenjwcwbqflmz',
+    user: 'ribbon.v1testmail@gmail.com',
+  },
+})
+
+export const sendMail = async (to: string, html: string) => {
   return await transporter.sendMail({
     to,
     html,

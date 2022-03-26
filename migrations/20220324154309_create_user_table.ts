@@ -4,9 +4,9 @@ export async function up(knex: Knex): Promise<void> {
   return await knex.schema.createTable('user', (table: Knex.TableBuilder) => {
     table.increments('id').primary()
 
-    table.string('firstname').notNullable()
-    table.string('lastname').notNullable()
-    table.string('middlename').nullable()
+    table.string('first_name').notNullable()
+    table.string('last_name').notNullable()
+    table.string('middle_name').nullable()
 
     table.string('email').index().unique().notNullable()
     table.string('phone').index().unique().notNullable()
