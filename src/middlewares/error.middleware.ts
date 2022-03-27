@@ -8,13 +8,13 @@ import { Response } from 'express'
 import createError from 'http-errors'
 import { Format } from '../utils/format-error'
 import { ValidationError } from 'class-validator'
+import { logger } from '@utils/logger'
 
 @Service()
 @Middleware({ type: 'after' })
 export class ErrorMiddleware implements ExpressErrorMiddlewareInterface {
   error(err: any, _req: any, res: Response): void {
     //
-
     const code = err.httpCode
     const message = err.message
     let errors = err?.errors || []
@@ -34,6 +34,7 @@ export class ErrorMiddleware implements ExpressErrorMiddlewareInterface {
       errors,
     }
 
-    return res.status(code).send(err)
+    logger.error(err)
+    console.log(res.header)
   }
 }

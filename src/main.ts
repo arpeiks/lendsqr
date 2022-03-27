@@ -1,11 +1,11 @@
 import 'reflect-metadata'
-import morgan from 'morgan'
 import express from 'express'
 import Container from 'typedi'
-import { logger, morganStream } from '@utils/logger'
+import { logger } from '@utils/logger'
 import { UserController } from '@user/user.controller'
-import { ErrorMiddleware } from '@middlewares/error.middleware'
+// import { ErrorMiddleware } from '@middlewares/error.middleware'
 import { AccountController } from '@account/account.controller'
+import { NotFoundMiddleware } from '@middlewares/404.middleware'
 import { useContainer, useExpressServer } from 'routing-controllers'
 
 useContainer(Container)
@@ -13,14 +13,13 @@ useContainer(Container)
 const app = express()
 
 app.use(express.json())
-app.use(morgan('dev', { stream: morganStream }))
 app.use(express.urlencoded({ extended: false }))
 
 useExpressServer(app, {
   routePrefix: '/api',
   defaultErrorHandler: false,
-  middlewares: [ErrorMiddleware],
   controllers: [UserController, AccountController],
+  middlewares: [NotFoundMiddleware],
 })
 
 // return unverified after creating account

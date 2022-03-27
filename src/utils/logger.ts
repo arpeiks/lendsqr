@@ -2,11 +2,14 @@ import winston from 'winston'
 
 const env = process.env.NODE_ENV
 const prodLogFile = 'logs/stack.log'
-const write = (message: string) => logger.http(message)
 
-const format = winston.format.printf(({ level, message, timestamp }) => {
-  return `[${level.toUpperCase()}] ${timestamp} - ${message}`
-})
+const format = winston.format.printf(
+  (info: winston.Logform.TransformableInfo) => {
+    return `[${info.level.toUpperCase()}] ${info.timestamp} - ${info.message}`
+  },
+)
+
+winston.addColors({ info: 'cyan', http: 'magenta' })
 
 const devLogger = winston.createLogger({
   level: 'silly',
@@ -28,5 +31,4 @@ const prodLogger = winston.createLogger({
   transports: new winston.transports.File({ filename: prodLogFile }),
 })
 
-export const morganStream = { write }
 export const logger = env !== 'production' ? devLogger : prodLogger
