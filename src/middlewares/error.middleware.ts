@@ -26,14 +26,23 @@ export class ErrorMiddleware implements ExpressErrorMiddlewareInterface {
   handleError(code: number, message: string, errors: any[], res: Response) {
     const error = createError(code, message, { errors })
 
-    const err = {
+    let err = {
       name: error.name,
       message: error.message,
       statusCode: error.statusCode,
       errors,
     }
 
-    logger.error(err)
+    if (err.statusCode === 404) {
+      err = {
+        errors: [],
+        statusCode: 404,
+        name: 'NotFound',
+        message: `The requested resource could not be found or hasn't been implemented yet.`,
+      }
+    }
+
+    logger.error({ ...err })
     return res.status(code).json(err)
   }
 }

@@ -39,6 +39,7 @@
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "dayjs": "^1.11.0",
     "express": "^4.17.3",
     "http-errors": "^2.0.0",
     "knex": "^1.0.4",

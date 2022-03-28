@@ -29,4 +29,12 @@ export class UserRepository {
 
     return camelCaseObjectMap(res)
   }
+
+  async findById(id: number) {
+    return await knex('user').where('id', id).first()
+  }
+
+  async update(id: number, update: any) {
+    return await knex('user').update(update).where('id', id)
+  }
 }

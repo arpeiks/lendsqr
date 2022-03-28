@@ -6,7 +6,6 @@ import { logger, morganStream } from '@utils/logger'
 import { UserController } from '@user/user.controller'
 import { ErrorMiddleware } from '@middlewares/error.middleware'
 import { AccountController } from '@account/account.controller'
-import { NotFoundMiddleware } from '@middlewares/404.middleware'
 import { useContainer, useExpressServer } from 'routing-controllers'
 
 useContainer(Container)
@@ -20,8 +19,8 @@ app.use(morgan('combined', { stream: morganStream }))
 useExpressServer(app, {
   routePrefix: '/api',
   defaultErrorHandler: false,
+  middlewares: [ErrorMiddleware],
   controllers: [UserController, AccountController],
-  middlewares: [ErrorMiddleware, NotFoundMiddleware],
 })
 
 // return unverified after creating account
@@ -34,4 +33,4 @@ useExpressServer(app, {
 
 // validate account before to ensure validated before sending money
 
-app.listen(3001, () => logger.info('Lendsqr application successfully started'))
+app.listen(3000, () => logger.info('Lendsqr application successfully started'))

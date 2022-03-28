@@ -1134,6 +1134,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dayjs@npm:^1.11.0":
+  version: 1.11.0
+  resolution: "dayjs@npm:1.11.0"
+  checksum: 2d36f6d71345114cdcd89147adf9e05b4f8fe81684e08c8bf1f86b140aa0b86ecc3cae661a9348d96feb7fbefd03e1bc3697303688e95209670abcb36b4ece15
+  languageName: node
+  linkType: hard
+
 "debug@npm:2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -2561,6 +2568,7 @@ __metadata:
     bcryptjs: ^2.4.3
     class-transformer: ^0.5.1
     class-validator: ^0.13.2
+    dayjs: ^1.11.0
     eslint: ^8.11.0
     express: ^4.17.3
     http-errors: ^2.0.0

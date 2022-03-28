@@ -1,8 +1,8 @@
+import dayjs from 'dayjs'
 import bcrypt from 'bcryptjs'
 import { Service } from 'typedi'
 import { sendMail } from '@utils/send-mail'
 import { UserRepository } from './user.repository'
-import { randomNumber } from '@utils/random-number'
 import { ConflictError } from '@errors/conflict.error'
 import { AccountService } from '@account/account.service'
 import { welcomeMailTemplate } from '@utils/resolve-mail-template'
@@ -30,22 +30,38 @@ export class UserService {
     if (errors.length) throw new ConflictError(errors)
   }
 
-  async create(body: CreateUserRequestBody) {
+  async create(url: string, body: CreateUserRequestBody) {
     await this.beforeCreate(body)
 
     const account = await this.Account.create({})
 
     body.account_id = account.id
-    body.otp = randomNumber(6)
+    body.otp = String(dayjs().valueOf())
 
     const salt = await bcrypt.genSalt(12)
     body.password = await bcrypt.hash(body.password, salt)
 
     const user = await this.User.create(body)
 
-    const html = await welcomeMailTemplate('https://google.com', 'welcome')
+    url = `${url}/verify?id=${user.id}&token=${body.otp}`
+    const html = await welcomeMailTemplate(url, 'welcome')
+
     await sendMail(user.email, html)
 
     return user
+  }
+
+  async verify(id: number, token: number) {
+    const user = await this.User.findById(id)
+    if (token !== Number(user.otp)) return false
+
+    const now = dayjs().valueOf()
+    const exp = dayjs(token).valueOf()
+
+    if (now > exp) return false
+
+    const update = { verified: true }
+    await this.User.update(id, update)
+    return true
   }
 }
