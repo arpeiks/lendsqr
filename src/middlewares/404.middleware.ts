@@ -6,9 +6,15 @@ import { ExpressMiddlewareInterface, Middleware } from 'routing-controllers'
 @Service()
 @Middleware({ type: 'after' })
 export class NotFoundMiddleware implements ExpressMiddlewareInterface {
-  use(req: Request, res: Response): any {
-    logger.error(`404 not found`)
-    console.log(req.body)
-    return res.status(404).json({ error: 'Not Found' })
+  use(_req: Request, res: Response): any {
+    const error = {
+      errors: [],
+      statusCode: 404,
+      name: 'NotFound',
+      message: `The requested resource could not be found or hasn't been implemented yet.`,
+    }
+
+    res.status(404).json(error)
+    logger.error(error)
   }
 }

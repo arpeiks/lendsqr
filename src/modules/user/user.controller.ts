@@ -13,8 +13,6 @@ export class UserController {
   async create(@Body() body: CreateUserRequestBody) {
     logger.info('Hello again distributed logs')
 
-    if (body.email === 'arpeiks@gmail.com') return { success: true }
-
     return await this.user.create(body)
   }
 }

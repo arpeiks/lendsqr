@@ -4,11 +4,11 @@ import {
 } from 'routing-controllers'
 
 import { Service } from 'typedi'
-import { Request, Response } from 'express'
 import createError from 'http-errors'
+import { logger } from '@utils/logger'
+import { Request, Response } from 'express'
 import { Format } from '../utils/format-error'
 import { ValidationError } from 'class-validator'
-import { logger } from '@utils/logger'
 
 @Service()
 @Middleware({ type: 'after' })
@@ -34,6 +34,6 @@ export class ErrorMiddleware implements ExpressErrorMiddlewareInterface {
     }
 
     logger.error(err)
-    console.log(res.header)
+    return res.status(code).json(err)
   }
 }

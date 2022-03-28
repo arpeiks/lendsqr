@@ -31,26 +31,21 @@ export class UserService {
   }
 
   async create(body: CreateUserRequestBody) {
-    try {
-      await this.beforeCreate(body)
+    await this.beforeCreate(body)
 
-      const account = await this.Account.create({})
+    const account = await this.Account.create({})
 
-      body.account_id = account.id
-      body.otp = randomNumber(6)
+    body.account_id = account.id
+    body.otp = randomNumber(6)
 
-      const salt = await bcrypt.genSalt(12)
-      body.password = await bcrypt.hash(body.password, salt)
+    const salt = await bcrypt.genSalt(12)
+    body.password = await bcrypt.hash(body.password, salt)
 
-      const user = await this.User.create(body)
+    const user = await this.User.create(body)
 
-      const html = await welcomeMailTemplate('https://google.com', 'welcome')
-      await sendMail(user.email, html)
+    const html = await welcomeMailTemplate('https://google.com', 'welcome')
+    await sendMail(user.email, html)
 
-      return user
-    } catch (err) {
-      console.log(err)
-      console.log({ err })
-    }
+    return user
   }
 }
