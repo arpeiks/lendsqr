@@ -80,10 +80,6 @@ export class UserService {
     return 'success'
   }
 
-  async addCard(id: number) {
-    return await this.User.addCard(id)
-  }
-
   async getVerificationCode(url: string, id: number) {
     const user = await this.User.getVerificationCodeFindUser(id)
     const otp = String(dayjs().add(1, 'hour').valueOf())

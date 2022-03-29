@@ -8,6 +8,7 @@ import { UserController } from '@user/user.controller'
 import { ErrorMiddleware } from '@middlewares/error.middleware'
 import { AccountController } from '@account/account.controller'
 import { useContainer, useExpressServer } from 'routing-controllers'
+import { CardController } from 'modules/card/card.controller'
 
 useContainer(Container)
 
@@ -29,7 +30,7 @@ useExpressServer(app, {
   routePrefix: '/api',
   defaultErrorHandler: false,
   middlewares: [ErrorMiddleware],
-  controllers: [UserController, AccountController],
+  controllers: [CardController, UserController, AccountController],
 })
 
 // return unverified after creating account

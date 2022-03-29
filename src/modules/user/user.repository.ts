@@ -48,7 +48,7 @@ export class UserRepository {
 
   async loginFindUser(email: string): Promise<LoginFindUser> {
     const user = await knex('user')
-      .select('id', 'password', 'verified')
+      .select('id', 'password', 'verified', 'account_id')
       .where('email', email)
       .first()
 
@@ -76,9 +76,5 @@ export class UserRepository {
 
   async update(id: number, update: any) {
     return await knex('user').update(update).where('id', id)
-  }
-
-  async addCard(id: number) {
-    return await knex('user').select('*').where('id', id).first()
   }
 }

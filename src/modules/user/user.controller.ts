@@ -10,6 +10,7 @@ import {
   UnauthorizedError,
   InternalServerError,
   JsonController as Controller,
+  Session,
 } from 'routing-controllers'
 
 import { Service } from 'typedi'
@@ -22,8 +23,8 @@ import { CreateUserRequestBody } from '@dto/request/create-user.dto'
 
 declare module 'express-session' {
   export interface SessionData {
-    user: { id: number }
     authenticated: boolean
+    user: { id: number; accountId: number }
   }
 }
 
@@ -46,13 +47,14 @@ export class UserController {
   async login(@Body() body: LoginRequestBody, @Req() req: Request) {
     try {
       const user = await this.User.login(body)
+
       if (!user.id) {
         req.session.destroy((err) => console.log(err))
         throw new UnauthorizedError('Error authenticating')
       }
 
       req.session.authenticated = true
-      req.session.user = { id: user.id }
+      req.session.user = { id: user.id, accountId: user.accountId }
 
       return req.session
     } catch (err: any) {
@@ -62,9 +64,12 @@ export class UserController {
   }
 
   @Get('/verify/code')
-  async getVerificationCode(@Req() req: Request) {
+  async getVerificationCode(@Req() req: Request, @Session() session: any) {
     try {
-      const userId = 1
+      if (!session?.authenticated)
+        throw new UnauthorizedError('Unauthenticated')
+
+      const userId = session.user.id
       await this.User.getVerificationCode(apiUrl(req), userId)
       return true
     } catch (err) {

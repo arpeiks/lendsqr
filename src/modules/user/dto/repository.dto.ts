@@ -13,6 +13,7 @@ export interface LoginFindUser {
   id: number
   email: string
   password: string
+  accountId: number
   verified: boolean
 }
 
