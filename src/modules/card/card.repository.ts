@@ -16,4 +16,9 @@ export class CardRepository {
     const card = await knex('card').select('id').where('number', number).first()
     return card as any
   }
+
+  async findOneById(id: number): Promise<{ id: number } | null> {
+    const card = await knex('card').select('id').where('id', id).first()
+    return card as any
+  }
 }

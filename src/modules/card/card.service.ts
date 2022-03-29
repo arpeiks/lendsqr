@@ -14,4 +14,8 @@ export class CardService {
     body.accountId = id
     return await this.Card.create(body)
   }
+
+  async findOneById(id: number) {
+    return await this.Card.findOneById(id)
+  }
 }
