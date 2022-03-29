@@ -216,7 +216,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:^4.17.13":
+"@types/express-session@npm:^1.17.4":
+  version: 1.17.4
+  resolution: "@types/express-session@npm:1.17.4"
+  dependencies:
+    "@types/express": "*"
+  checksum: 3047c30e3eafec89a670445ca7162ff595e25d8baa9490a2e1a0dfcb41eb09d0fb680515b8ba9ab36abfe7303438833ef90f6cbbce319b5be0d80b09ae4f795f
+  languageName: node
+  linkType: hard
+
+"@types/express@npm:*, @types/express@npm:^4.17.13":
   version: 4.17.13
   resolution: "@types/express@npm:4.17.13"
   dependencies:
@@ -1555,7 +1564,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-session@npm:^1.17.1":
+"express-session@npm:^1.17.1, express-session@npm:^1.17.2":
   version: 1.17.2
   resolution: "express-session@npm:1.17.2"
   dependencies:
@@ -2558,6 +2567,7 @@ __metadata:
   dependencies:
     "@types/bcryptjs": ^2.4.2
     "@types/express": ^4.17.13
+    "@types/express-session": ^1.17.4
     "@types/http-errors": ^1.8.2
     "@types/lodash": ^4.14.180
     "@types/morgan": ^1.9.3
@@ -2571,6 +2581,7 @@ __metadata:
     dayjs: ^1.11.0
     eslint: ^8.11.0
     express: ^4.17.3
+    express-session: ^1.17.2
     http-errors: ^2.0.0
     knex: ^1.0.4
     lodash: ^4.17.21

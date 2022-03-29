@@ -4,11 +4,12 @@ import {
   Res,
   Body,
   Post,
+  Param,
   Redirect,
   QueryParam,
+  UnauthorizedError,
   InternalServerError,
   JsonController as Controller,
-  Param,
 } from 'routing-controllers'
 
 import { Service } from 'typedi'
@@ -18,6 +19,13 @@ import { Request, Response } from 'express'
 import { UserService } from './user.service'
 import { LoginRequestBody } from '@dto/request/login'
 import { CreateUserRequestBody } from '@dto/request/create-user.dto'
+
+declare module 'express-session' {
+  export interface SessionData {
+    user: { id: number }
+    authenticated: boolean
+  }
+}
 
 @Service()
 @Controller('/user')
@@ -35,9 +43,18 @@ export class UserController {
   }
 
   @Post('/login')
-  async login(@Body() body: LoginRequestBody) {
+  async login(@Body() body: LoginRequestBody, @Req() req: Request) {
     try {
-      return await this.User.login(body)
+      const user = await this.User.login(body)
+      if (!user.id) {
+        req.session.destroy((err) => console.log(err))
+        throw new UnauthorizedError('Error authenticating')
+      }
+
+      req.session.authenticated = true
+      req.session.user = { id: user.id }
+
+      return req.session
     } catch (err: any) {
       logger.error({ ...err })
       throw new InternalServerError(err)

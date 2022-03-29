@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import morgan from 'morgan'
 import express from 'express'
+import session from 'express-session'
 import Container from 'typedi'
 import { logger, morganStream } from '@utils/logger'
 import { UserController } from '@user/user.controller'
@@ -15,6 +16,14 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(morgan('combined', { stream: morganStream }))
+app.use(
+  session({
+    resave: false,
+    secret: 'keyboard_cat',
+    saveUninitialized: false,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 },
+  }),
+)
 
 useExpressServer(app, {
   routePrefix: '/api',

@@ -59,7 +59,7 @@ export class UserService {
 
     if (!user.id) throw new NotFoundError('not found')
 
-    const passValid = bcrypt.compare(body.password, user.password)
+    const passValid = await bcrypt.compare(body.password, user.password)
     if (!passValid) throw new BadRequestError('Invalid credentials')
 
     return user
