@@ -18,4 +18,13 @@ export class AccountRepository {
     const data = await knex('account').max('id', { as: 'id' }).first()
     return Number(data?.id || 0) + 1
   }
+
+  async update(id: number, update: any) {
+    update = snakeCaseObjectMap(update)
+    return await knex('account').update(update).where('id', id)
+  }
+
+  async findOneById(id: number) {
+    return await knex('account').select('*').where('id', id).first()
+  }
 }

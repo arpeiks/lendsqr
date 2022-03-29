@@ -37,4 +37,8 @@ export class UserRepository {
   async update(id: number, update: any) {
     return await knex('user').update(update).where('id', id)
   }
+
+  async addCard(id: number) {
+    return await knex('user').select('*').where('id', id).first()
+  }
 }

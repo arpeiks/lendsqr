@@ -42,6 +42,7 @@ export class UserService {
     body.password = await bcrypt.hash(body.password, salt)
 
     const user = await this.User.create(body)
+    await this.Account.update(account.id, { userId: user.id })
 
     url = `${url}/verify?id=${user.id}&token=${body.otp}`
     const html = await welcomeMailTemplate(url, 'welcome')
@@ -63,5 +64,9 @@ export class UserService {
     const update = { verified: true }
     await this.User.update(id, update)
     return true
+  }
+
+  async addCard(id: number) {
+    return await this.User.addCard(id)
   }
 }
