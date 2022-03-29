@@ -4,6 +4,18 @@ export interface BeforeCreate {
   phone: string
 }
 
+export interface VerifyFindUser {
+  id: number
+  otp: number
+}
+
+export interface LoginFindUser {
+  id: number
+  email: string
+  password: string
+  verified: boolean
+}
+
 export interface CreateUser {
   id: number
   email: string

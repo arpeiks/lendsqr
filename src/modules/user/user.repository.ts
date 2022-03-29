@@ -1,6 +1,12 @@
+import {
+  CreateUser,
+  BeforeCreate,
+  LoginFindUser,
+  VerifyFindUser,
+} from './dto/repository.dto'
+
 import knex from '@knex/db'
 import { Service } from 'typedi'
-import { BeforeCreate, CreateUser } from './dto/repository.dto'
 import { CreateUserRequestBody } from '@dto/request/create-user.dto'
 import { camelCaseObjectMap, snakeCaseObjectMap } from '@utils/casing'
 
@@ -38,6 +44,30 @@ export class UserRepository {
       .first()
 
     return camelCaseObjectMap(res)
+  }
+
+  async loginFindUser(email: string): Promise<LoginFindUser> {
+    const user = await knex('user')
+      .select('id', 'password', 'verified')
+      .where('email', email)
+      .first()
+
+    return camelCaseObjectMap(user)
+  }
+
+  async verifyFindUser(id: number): Promise<VerifyFindUser> {
+    const user = await knex('user').select('id', 'otp').where('id', id).first()
+    return camelCaseObjectMap(user)
+  }
+
+  async getVerificationCodeFindUser(
+    id: number,
+  ): Promise<{ id: number; email: string }> {
+    const user = await knex('user')
+      .select('id', 'email')
+      .where('id', id)
+      .first()
+    return camelCaseObjectMap(user)
   }
 
   async findById(id: number) {
