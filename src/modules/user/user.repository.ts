@@ -23,7 +23,17 @@ export class UserRepository {
 
     await knex('user').insert(body)
     const res = await knex('user')
-      .select('*')
+      .select(
+        'id',
+        'email',
+        'phone',
+        'verified',
+        'last_name',
+        'created_at',
+        'updated_at',
+        'first_name',
+        'middle_name',
+      )
       .where('email', body.email)
       .first()
 

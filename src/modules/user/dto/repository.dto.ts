@@ -8,12 +8,10 @@ export interface CreateUser {
   id: number
   email: string
   phone: string
-  password: string
-  lastname: string
-  created_at: Date
-  updated_at: Date
-  firstname: string
+  lastName: string
+  createdAt: Date
+  updatedAt: Date
+  firstName: string
   verified: boolean
-  account_id: string
-  middlename: string
+  middleName: string
 }

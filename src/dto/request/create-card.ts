@@ -8,7 +8,7 @@ import {
 
 const expRegEx = /^(0[1-9]\/|1[0-2])\/?([0-9]{2}|[0-9]{2})$/gm
 
-export class AddCardRequestBody {
+export class CreateCardRequestBody {
   @IsString()
   @IsCreditCard()
   number!: string

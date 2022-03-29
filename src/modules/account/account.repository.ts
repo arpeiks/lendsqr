@@ -1,15 +1,19 @@
 import knex from '@knex/db'
 import { Service } from 'typedi'
+import { Create } from './dto/repository'
 import { camelCaseObjectMap, snakeCaseObjectMap } from '@utils/casing'
 import { CreateAccountRequestBody } from '@dto/request/create-account'
 
 @Service()
 export class AccountRepository {
-  async create(body: CreateAccountRequestBody) {
+  async create(body: CreateAccountRequestBody): Promise<Create> {
     body = snakeCaseObjectMap(body)
 
     await knex('account').insert(body)
-    const res = await knex('account').where('number', body.number).first()
+    const res = await knex('account')
+      .select('id')
+      .where('number', body.number)
+      .first()
 
     return camelCaseObjectMap(res)
   }

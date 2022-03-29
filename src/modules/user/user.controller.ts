@@ -1,20 +1,21 @@
-import { Service } from 'typedi'
-import { UserService } from './user.service'
-import { CreateUserRequestBody } from '@dto/request/create-user.dto'
 import {
-  Body,
   Get,
-  InternalServerError,
-  JsonController as Controller,
-  Post,
-  QueryParam,
-  Redirect,
   Req,
   Res,
+  Body,
+  Post,
+  Redirect,
+  QueryParam,
+  InternalServerError,
+  JsonController as Controller,
 } from 'routing-controllers'
+
+import { Service } from 'typedi'
 import { logger } from '@utils/logger'
-import { Request, Response } from 'express'
 import { apiUrl } from '@utils/api-url'
+import { Request, Response } from 'express'
+import { UserService } from './user.service'
+import { CreateUserRequestBody } from '@dto/request/create-user.dto'
 
 @Service()
 @Controller('/user')
@@ -26,7 +27,7 @@ export class UserController {
     try {
       return await this.User.create(apiUrl(req), body)
     } catch (err: any) {
-      logger.error(`Internal Server Error - ${err.sqlMessage}`)
+      logger.error(`Internal Server Error - ${err}`)
       throw new InternalServerError('Something went wrong')
     }
   }
