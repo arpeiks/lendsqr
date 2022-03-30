@@ -5,8 +5,8 @@ const transporter = nodemailer.createTransport({
   secure: true,
   host: 'smtp.gmail.com',
   auth: {
-    pass: 'pocdenjwcwbqflmz',
-    user: 'ribbon.v1testmail@gmail.com',
+    pass: 'pass',
+    user: 'user',
   },
 })
 
